@@ -1,0 +1,509 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>DELIVERY MANAGEMENT</title>
+  </head>
+  <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+  *{
+    margin: 0;
+    background-color: #FAFBFF;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .logos{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 1.5rem 3.5rem;
+  }
+  .totalProgress{
+    width: 87%;
+    margin: 1rem 3.5rem;
+    background-color: white !important;
+    box-shadow: 0px 0px 8px 6px rgba(0, 0, 0, 0.034);
+    border-radius: 15px;
+    padding: 1rem 1.8rem;
+  }
+
+  .totalProgress p, .cityProgress h2, .cityProgress #cityBreakdown,.city-label span, .dataTable h2, .dataTable input, .dataTable select, .dataTable table tr td, .cityProgress h2{
+    background-color: white !important;
+  }
+
+  .cityProgress{
+    width: 87%;
+    margin: 1rem 3.5rem;
+    background-color: white !important;
+    box-shadow: 0px 0px 8px 6px rgba(0, 0, 0, 0.034);
+    border-radius: 15px;
+    padding: 1rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .statusProgress{
+    width: 87%;
+    margin: 1rem 3.5rem;
+    background-color: white !important;
+    box-shadow: 0px 0px 8px 6px rgba(0, 0, 0, 0.034);
+    border-radius: 15px;
+    padding: 1rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  footer {
+    width: 87%;
+    margin: 0rem 3.5rem;
+    border-radius: 15px;
+    padding: 0rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .dataTable{
+    width: 87%;
+    margin: 1rem 3.5rem;
+    background-color: white !important;
+    box-shadow: 0px 0px 8px 6px rgba(0, 0, 0, 0.034);
+    border-radius: 15px;
+    padding: 1rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+
+  .city-row {
+    background-color: white !important;
+    width: 48%;
+    margin-bottom: 17px;
+  }
+
+  .city-label {
+    background-color: white !important;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+
+  .progress-bar-bg {
+    height: 8px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 0.8rem;
+  }
+
+  .progress-bar-fill {
+    height: 8px;
+    background-color: #007bff;
+    border-radius: 10px 0 0 10px;
+    width: 0;
+    transition: width 1s ease-in-out;
+  }
+
+  table th, table td {
+    font-size: 10px;
+    width: 15rem;
+    word-wrap: break-word;
+    padding: 1rem;
+  }
+
+  .status-tag {
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-weight: 500;
+    display: inline-block;
+  }
+
+  .status-delivered {
+    background-color: rgba(162, 226, 195, 0.30);
+    color: #00AC4F;
+    border: 1px solid #00AC4F;
+  }
+
+  .status-packing {
+    background-color: #07a7c321;
+    color: #07A7C3;
+    border: 1px solid #07A7C3;
+  }
+
+  .status-warehouse {
+    background-color: #f3b2272c;
+    color: #F3B227;
+    border: 1px solid #F3B227;
+  }
+
+  .status-pending {
+    background-color: #df04041e;
+    color: #DF0404;
+    border: 1px solid #DF0404;
+  }
+
+  .cards{
+    background-color: white !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4.5rem;
+    padding-bottom: 1rem;
+  }
+
+  .card{
+    
+    background-color: white !important;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .card img{
+    background-color: white !important;
+    width: 6rem;
+    height: 6rem;
+  }
+
+  .card-content{
+    background-color: white !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    text-align: left;
+    align-items: flex-start;
+    gap: 0.7REM;
+  }
+
+  .card-content span, .card-content h4{
+    background-color: white !important;
+    line-height: 1;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .card-content span{
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.575);
+  }
+
+  .card-content h4{
+    font-size: 1.3rem;
+  }
+
+  #loginForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    gap: 1rem;
+    width: 100%;
+    line-height: 1;
+  }
+
+  .inputSection{
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    width: 30%;
+    gap: 0.5rem;
+  }
+
+  .inputSection input{
+    width: 100%;
+    padding: 0.5rem 0.7rem;
+    border-radius: 5px;
+    border: 0.1rem solid rgba(0, 0, 0, 0.582);
+  }
+
+  .inputSection input:focus{
+    width: 100%;
+    padding: 0.5rem 0.7rem;
+    border-radius: 5px;
+    border: 0.1rem solid rgb(4, 84, 204);
+    outline: none;
+    box-shadow: 0px 0px 6px 2px rgba(4, 84, 204, 0.219);
+  }
+
+  .inputSection button{
+    width: 106%;
+    padding: 0.6rem 0.7rem;
+    border-radius: 5px;
+    background-color: rgb(4, 84, 204);
+    border: none;
+    color: white;
+    font-weight: 5000;
+    cursor: pointer;
+  }
+    #deliveryTableBody tr:nth-child(even) {
+    background-color: #f5f5f5; /* light grey */
+  }
+
+  #deliveryTableBody tr:nth-child(odd) {
+    background-color: #ffffff; /* white */
+  }
+
+  #deliveryTableBody tr td {
+    background-color: inherit !important; /* inherit from row */
+  }
+
+
+  @media (max-width: 768px){
+    .logos{
+      width: 95%;
+      margin: 1.5rem 7%;
+    }
+
+    .logos .twf{
+      width: 11rem;
+      height: auto;
+    }
+
+    .logos .scb{
+      width: 9rem;
+      height: auto;
+    }
+
+    .totalProgress{
+      width: 87%;
+      margin: 1rem 7%;
+    }
+
+    .cityProgress{
+      width: 87%;
+      margin: 1rem 7%;
+    }
+
+    .dataTable{
+      width: 87%;
+      margin: 1rem 7%;
+    }
+
+    .city-row {
+      width: 100%;
+      margin-bottom: 17px;
+    }
+
+    .statusProgress{
+      width: 87%;
+      margin: 1rem 7%;
+    }
+
+    .cards{
+      gap: 1.5rem;
+      padding: 0% 15%;
+    }
+
+    .card{
+      flex: 1;
+    }
+
+    #loginForm{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 80vh;
+      gap: 1rem;
+      width: 95%;
+      line-height: 1;
+    }
+
+    .inputSection{
+      display: flex;
+      justify-content: left;
+      flex-direction: column;
+      width: 65%;
+      gap: 0.5rem;
+    }
+
+    .inputSection input{
+      width: 100%;
+      padding: 0.5rem 0.7rem;
+      border-radius: 5px;
+      border: 0.1rem solid rgba(0, 0, 0, 0.582);
+    }
+
+    .inputSection input:focus{
+      width: 100%;
+      padding: 0.5rem 0.7rem;
+      border-radius: 5px;
+      border: 0.1rem solid rgb(4, 84, 204);
+      outline: none;
+      box-shadow: 0px 0px 6px 2px rgba(4, 84, 204, 0.219);
+    }
+
+    .inputSection button{
+      width: 110%;
+      padding: 0.6rem 0.7rem;
+      border-radius: 5px;
+      background-color: rgb(4, 84, 204);
+      border: none;
+      color: white;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    #loginForm img{
+      height: 4.5rem;
+    }
+  }
+  </style>
+  <body>
+      <div class="dataTable">
+
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin: 20px 0; background-color: white !important;">
+          <h2 style="font-weight: bold;">SCB DELIVERY MANAGEMENT</h2>
+
+          <div class="filters" style="background-color: white !important; display: flex; gap: 0.5rem;">
+            <input type="text" id="searchInput" placeholder="Search" style="padding: 5px; width: 200px; border-radius: 8px; border: 1px solid #ddd; font-size: 0.8rem;">
+            <select id="cityFilter" style="padding: 1px; border-radius: 8px; border: 1px solid #ddd; font-size: 0.7rem; width: 150px;">
+              <option value="">All Cities</option>
+            </select>
+          </div>
+          
+        </div>
+
+        <div class="table-wrapper" style="max-height: 70vh; overflow-y: auto; border-radius: 15px;">
+          <table style="width: 100%; border-collapse: collapse; background-color: white;">
+            <thead style="position: sticky; top: 0; background-color: white; z-index: 1; border-bottom: 1px solid #eee; background-color: #cecece !important;">
+              <tr style="text-align: left;">
+                <th>Name</th>
+                <th>Company</th>
+                <th>Designation</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody id="deliveryTableBody">
+              <!-- Your rows will be injected here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+  </body>
+  <script>
+
+  let allData = [];
+  function fetchData(){
+    fetch('read_customer.php')
+    .then(response => {
+        if (!response.ok) {
+        throw new Error("Network response was not ok");
+        }
+        return response.json();
+    })
+    .then(data => {
+        allData = data;
+        renderTable(allData);
+        populateCityFilter();
+    })
+    .catch(error => {
+        console.error("Error fetching data:", error);
+    });
+  }
+
+  fetchData();
+
+  function renderTable(data) {
+    const tbody = document.getElementById("deliveryTableBody");
+    tbody.innerHTML = "";
+    data.forEach(row => {
+      const tr = document.createElement("tr");
+
+      const statusOptions = ['Delivered', 'Being Packed', 'At Our Warehouse', 'At Our Farm'];
+      let optionsHTML = statusOptions.map(status => 
+        `<option value="${status}" ${row.status === status ? 'selected' : ''}>${status}</option>`
+      ).join('');
+
+      tr.innerHTML = `
+        <td>${row.name}</td>
+        <td>${row.company}</td>
+        <td>${row.designation}</td>
+        <td>${row.address}</td>
+        <td>${row.city}</td>
+        <td>
+          <select class="status-select" data-id="${row.id}" style="padding: 5px; border-radius: 8px; border: 1px solid #ddd; font-size: 0.7rem; width: 150px;">
+            ${optionsHTML}
+          </select>
+        </td>
+      `;
+
+      tbody.appendChild(tr);
+    });
+
+    // Listen for change on any select
+    document.querySelectorAll(".status-select").forEach(select => {
+      select.addEventListener("change", async function () {
+        const newStatus = this.value;
+        const rowId = this.dataset.id;
+
+        try {
+          const response = await fetch("update_status.php", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `id=${rowId}&status=${encodeURIComponent(newStatus)}`
+          });
+
+          const result = await response.json();
+          if (result.success) {
+            console.log("Status updated successfully!");
+          } else {
+            alert("Failed to update status.");
+          }
+        } catch (err) {
+          alert("Error occurred while updating.");
+        }
+      });
+    });
+  }
+
+
+  // Populate filter dropdown
+  function populateCityFilter() {
+    const cityFilter = document.getElementById("cityFilter");
+    const cities = [...new Set(allData.map(row => row.city))];
+    cities.forEach(city => {
+      const option = document.createElement("option");
+      option.value = city;
+      option.textContent = city;
+      cityFilter.appendChild(option);
+    });
+  }
+
+  // Filter on search and city
+  function applyFilters() {
+    const searchText = document.getElementById("searchInput").value.toLowerCase();
+    const city = document.getElementById("cityFilter").value;
+    const filtered = allData.filter(row =>
+      (row.name.toLowerCase().includes(searchText) ||
+      row.company.toLowerCase().includes(searchText) ||
+      row.designation.toLowerCase().includes(searchText) ||
+      row.address.toLowerCase().includes(searchText)) &&
+      (city === "" || row.city === city)
+    );
+    renderTable(filtered);
+  }
+
+  // Event listeners
+  document.getElementById("searchInput").addEventListener("input", applyFilters);
+  document.getElementById("cityFilter").addEventListener("change", applyFilters);
+
+  </script>
+  </html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Customer</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  input, select {
+    padding: 12px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #45a049;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .message {
+    text-align: center;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<h2 style="text-align:center;">Add New Customer</h2>
+
+<form id="customerForm">
+  <input type="text" name="name" placeholder="Customer Name" required>
+  <input type="text" name="company" placeholder="Company Name" required>
+  <input type="text" name="designation" placeholder="Designation" required>
+  <input type="text" name="address" placeholder="Address" required>
+  <input type="text" name="city" placeholder="City" required>
+  <select name="status" required>
+    <option value="At Our Farm">At Our Farm</option>
+    <option value="At Our Warehouse">At Our Warehouse</option>
+    <option value="Being Packed">Being Packed</option>
+    <option value="Delivered">Delivered</option>
+  </select>
+  <button type="submit">Add Customer</button>
+</form>
+
+<div class="message" id="responseMessage"></div>
+
+<script>
+
+document.getElementById("customerForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    let formData = new FormData(this);
+
+    fetch("add_customer.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(data => {
+        this.reset(); 
+    });
+});
+
+</script>
+
+</body>
+</html>
