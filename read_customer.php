@@ -2,7 +2,7 @@
 include 'db.php'; // Include the DB connection
 
 // Fetch all customer records
-$sql = "SELECT * FROM customers";
+$sql = "SELECT * FROM customers_dates";
 $result = $conn->query($sql);
 
 $customers = [];

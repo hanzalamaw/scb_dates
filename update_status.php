@@ -13,7 +13,7 @@ if (!$id || !$status) {
 }
 
 // Update query
-$stmt = $conn->prepare("UPDATE customers SET status = ? WHERE id = ?");
+$stmt = $conn->prepare("UPDATE customers_dates SET status = ? WHERE id = ?");
 $stmt->bind_param("si", $status, $id);
 
 if ($stmt->execute()) {
