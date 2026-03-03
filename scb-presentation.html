@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCB Date Box Gifting — Dashboard Overview</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: #111827;
+      background: #f3f4f6;
+      line-height: 1.6;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+    }
+
+    /* ── Cover ── */
+    .cover {
+      padding: 3rem 3rem 1.5rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .cover-top {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.75rem;
+    }
+    .cover-logo {
+      width: 36px;
+      height: 36px;
+      background: #111827;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.03em;
+      flex-shrink: 0;
+    }
+    .cover-brand {
+      font-size: 0.8rem;
+      color: #6b7280;
+      font-weight: 500;
+    }
+    .cover h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #111827;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+    .cover .subtitle {
+      font-size: 1.05rem;
+      color: #6b7280;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+    }
+    .cover-meta {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .cover-meta-item {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+    .cover-meta-item strong {
+      color: #374151;
+      font-weight: 600;
+    }
+
+    /* ── Content ── */
+    .content { padding: 2.5rem 3rem 3rem; }
+
+    /* ── Section ── */
+    .section { margin-bottom: 2.75rem; }
+    .section:last-of-type { margin-bottom: 0; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 0.85rem;
+    }
+    .section-num {
+      width: 1.65rem;
+      height: 1.65rem;
+      background: #111827;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    h2 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      font-size: 0.9rem;
+      color: #4b5563;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── Screenshot ── */
+    .screenshot {
+      margin: 1.25rem 0 0.25rem;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      overflow: hidden;
+      background: #fafafa;
+    }
+    .screenshot-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #9ca3af;
+      padding: 0.6rem 1rem 0;
+    }
+    .screenshot-inner {
+      padding: 0.5rem;
+    }
+    .screenshot-inner img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+    }
+    .screenshot-inner .ph {
+      color: #d1d5db;
+      font-size: 0.8rem;
+      text-align: center;
+      padding: 1.5rem;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── Feature list ── */
+    .features {
+      margin-top: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .feature {
+      display: flex;
+      gap: 1rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid #f3f4f6;
+      align-items: flex-start;
+    }
+    .feature:last-child { border-bottom: none; }
+    .feature-icon {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .feature-icon.green  { background: #ecfdf5; }
+    .feature-icon.blue   { background: #eff6ff; }
+    .feature-icon.amber  { background: #fffbeb; }
+    .feature-icon.violet { background: #f5f3ff; }
+    .feature-body h3 {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 0.2rem;
+    }
+    .feature-body p {
+      font-size: 0.8125rem;
+      color: #6b7280;
+      margin: 0;
+      line-height: 1.55;
+    }
+
+    /* ── Dashboard link card ── */
+    .link-card {
+      margin-top: 1.25rem;
+      background: #111827;
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+    .link-card .label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9ca3af;
+      margin-bottom: 0.4rem;
+    }
+    .link-card a {
+      color: #fff;
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .link-card a:hover { text-decoration: underline; }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: #e5e7eb;
+      margin: 2.5rem 0;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e5e7eb;
+      margin-top: 2.5rem;
+      text-align: center;
+    }
+
+    .no-print { display: block; }
+
+    @media print {
+      body { background: #fff; }
+      .page { box-shadow: none; max-width: none; }
+      .no-print { display: none !important; }
+      .cover { padding: 2rem 2.5rem 1.75rem; }
+      .content { padding: 2rem 2.5rem 2.5rem; }
+      .screenshot { break-inside: avoid; }
+      .section { break-inside: avoid; }
+      h2 { break-after: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Cover -->
+    <section class="cover">
+      <h1>SCB Date Box Gifting</h1>
+      <p class="subtitle">Dashboard overview & section breakdown</p>
+    </section>
+
+    <div class="content">
+
+      <!-- 1. Introduction -->
+      <section class="section">
+        <div class="section-header">
+          <span class="section-num">1</span>
+          <h2>Introduction</h2>
+        </div>
+        <p>
+          This document walks through the gifting dashboard built for SCB. The dashboard gives a clear, real-time view of date box delivery progress — overall completion, city-wise breakdown, status pipeline, and a full searchable recipient list. It is accessible at <strong>scb.tw-traders.com</strong>.
+        </p>
+      </section>
+
+      <!-- 2. Full Dashboard -->
+      <section class="section">
+        <div class="section-header">
+          <span class="section-num">2</span>
+          <h2>Full dashboard view</h2>
+        </div>
+        <p>
+          Here is the complete dashboard at a glance. All sections described below are visible on this single page.
+        </p>
+        <div class="screenshot">
+          <div class="screenshot-label">Full dashboard</div>
+          <div class="screenshot-inner">
+            <img src="screenshots/full-dashboard.png" alt="Full dashboard" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <span class="ph" style="display:none;">Add screenshot → <strong>screenshots/full-dashboard.png</strong></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Total Progress -->
+      <section class="section">
+        <div class="section-header">
+          <span class="section-num">3</span>
+          <h2>Date boxes delivered — total progress</h2>
+        </div>
+        <p>
+          A single progress bar at the top of the dashboard showing the percentage of date boxes that have been <strong>Delivered</strong> out of the total number of recipients. This is the primary KPI for how far along the gifting campaign is.
+        </p>
+        <div class="screenshot">
+          <div class="screenshot-label">Total progress bar</div>
+          <div class="screenshot-inner">
+            <img src="screenshots/total-progress.png" alt="Total progress" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <span class="ph" style="display:none;">Add screenshot → <strong>screenshots/total-progress.png</strong></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. City-wise -->
+      <section class="section">
+        <div class="section-header">
+          <span class="section-num">4</span>
+          <h2>City-wise delivery breakdown</h2>
+        </div>
+        <p>
+          Individual progress bars for each city. For every city it shows how many boxes are delivered versus the total (e.g. "12 / 20 — 60%"). This lets SCB quickly identify which regions are ahead of schedule and which need attention.
+        </p>
+        <div class="screenshot">
+          <div class="screenshot-label">City-wise progress</div>
+          <div class="screenshot-inner">
+            <img src="screenshots/city-breakdown.png" alt="City breakdown" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <span class="ph" style="display:none;">Add screenshot → <strong>screenshots/city-breakdown.png</strong></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Status-wise -->
+      <section class="section">
+        <div class="section-header">
+          <span class="section-num">5</span>
+          <h2>Status-wise breakdown</h2>
+        </div>
+        <p>
+          Four status cards showing how many boxes are at each stage of the pipeline. The counts always add up to the total number of recipients and update automatically as statuses change.
+        </p>
+        <div class="features">
+          <div class="feature">
+            <div class="feature-icon blue">🌴</div>
+            <div class="feature-body">
+              <h3>In Production</h3>
+              <p>Date boxes currently being prepared at the farm.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon amber">🔍</div>
+            <div class="feature-body">
+              <h3>Quality Check</h3>
+              <p>Boxes received at the warehouse and undergoing quality inspection.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon violet">📦</div>
+            <div class="feature-body">
+              <h3>Packed</h3>
+              <p>Boxes packed, labelled, and ready for dispatch.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon green">✅</div>
+            <div class="feature-body">
+              <h3>Delivered</h3>
+              <p>Successfully delivered to the recipient.</p>
+            </div>
+          </div>
+        </div>
+        <div class="screenshot">
+          <div class="screenshot-label">Status cards</div>
+          <div class="screenshot-inner">
+            <img src="screenshots/status-cards.png" alt="Status cards" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <span class="ph" style="display:none;">Add screenshot → <strong>screenshots/status-cards.png</strong></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Table -->
+      <section class="section">
+        <div class="section-header">
+          <span class="section-num">6</span>
+          <h2>All deliveries — recipient table</h2>
+        </div>
+        <p>
+          A table listing every recipient with their Name, Company/Designation, Address, City and current Status. Users can search by name, contact or address, and filter by city and status to quickly find any entry.
+        </p>
+        <div class="screenshot">
+          <div class="screenshot-label">Recipient table with filters</div>
+          <div class="screenshot-inner">
+            <img src="screenshots/data-table.png" alt="Data table" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <span class="ph" style="display:none;">Add screenshot → <strong>screenshots/data-table.png</strong></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. Live link -->
+      <section class="section">
+        <div class="section-header">
+          <span class="section-num">7</span>
+          <h2>Live dashboard</h2>
+        </div>
+        <p>
+          The dashboard is live and available at the link below. SCB can use it to view real-time progress at any time and share with stakeholders.
+        </p>
+        <div class="link-card">
+          <div class="label">Dashboard URL</div>
+          <a href="https://scb.tw-traders.com" target="_blank" rel="noopener">scb.tw-traders.com</a>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <p class="footer">
+        © 2026 The Warsi Farm. All rights reserved.
+      </p>
+
+    </div>
+  </div>
+</body>
+</html>
