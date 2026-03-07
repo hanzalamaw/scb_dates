@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TWF x SCB — Verify</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+    *, *::before, *::after {
+      background-color: #FAFBFF;
+      font-family: 'Poppins', sans-serif;
+      box-sizing: border-box;
+    }
+
+    html { font-size: 14px; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+    }
+
+    .login-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .login-card {
+      background-color: white !important;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      border-radius: 10px;
+      padding: 2rem 2rem 1.75rem;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .card-logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      background-color: white !important;
+    }
+
+    .card-logo img {
+      height: 3.25rem;
+      width: auto;
+      object-fit: contain;
+      background-color: white !important;
+    }
+
+    .login-card h2 {
+      background-color: white !important;
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 0.25rem 0;
+      letter-spacing: 0.02em;
+    }
+
+    .login-card p.sub {
+      background-color: white !important;
+      font-size: 0.8rem;
+      color: rgba(0,0,0,0.45);
+      margin: 0 0 1.5rem 0;
+      line-height: 1.5;
+    }
+
+    .field {
+      background-color: white !important;
+      margin-bottom: 1.25rem;
+    }
+
+    .field label {
+      background-color: white !important;
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #555;
+      margin-bottom: 0.35rem;
+    }
+
+    .otp-input {
+      background-color: white !important;
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1.4rem;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      outline: none;
+      text-align: center;
+      letter-spacing: 0.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .otp-input:focus { border-color: #007bff; }
+    .otp-input::placeholder { color: #ccc; font-size: 0.85rem; letter-spacing: 0.05rem; font-weight: 400; }
+
+    .btn {
+      width: 100%;
+      padding: 0.55rem;
+      background-color: #007bff !important;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s, opacity 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn:hover { background-color: #0069d9 !important; }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn span { background-color: transparent !important; color: #fff; }
+
+    .spinner {
+      display: none;
+      width: 14px; height: 14px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      background-color: transparent !important;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .alert {
+      display: none;
+      padding: 0.5rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    .alert.error   { background-color: rgba(223,4,4,0.07) !important; color: #DF0404; border: 1px solid #DF0404; }
+    .alert.success { background-color: rgba(0,172,79,0.08) !important; color: #00AC4F; border: 1px solid #00AC4F; }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      color: #007bff;
+      text-decoration: none;
+      background-color: white !important;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    /* Resend row */
+    .resend-row {
+      background-color: white !important;
+      text-align: center;
+      font-size: 0.78rem;
+      color: rgba(0,0,0,0.45);
+      margin-bottom: 1.25rem;
+    }
+    .resend-btn {
+      background: none !important;
+      border: none;
+      color: #007bff;
+      font-size: 0.78rem;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      padding: 0;
+      font-weight: 500;
+    }
+    .resend-btn:disabled { color: #aaa; cursor: not-allowed; }
+
+    footer {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0.5rem auto 1rem;
+      padding: 0.5rem 1rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    @media (max-width: 768px) {
+      .login-card { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-wrapper">
+    <div class="login-card">
+
+      <div class="card-logo">
+        <img src="imgs/logo.png" alt="TWF">
+      </div>
+
+      <h2>Check your email</h2>
+      <p class="sub">We sent a 4-digit verification code to your registered email address. Enter it below to continue.</p>
+
+      <div class="alert" id="alert"></div>
+
+      <div class="field">
+        <label for="otp">Verification Code</label>
+        <input
+          type="text"
+          id="otp"
+          class="otp-input"
+          placeholder="- - - -"
+          maxlength="4"
+          inputmode="numeric"
+          autocomplete="one-time-code"
+          autofocus
+        />
+      </div>
+
+      <div class="resend-row">
+        Didn't receive it?
+        <button class="resend-btn" id="resendBtn" onclick="handleResend()">Resend code</button>
+        <span id="countdown"></span>
+      </div>
+
+      <button class="btn" id="verifyBtn" onclick="handleVerify()">
+        <div class="spinner" id="spinner"></div>
+        <span id="btnText">Verify</span>
+      </button>
+
+      <a href="login.html" class="back-link">← Back to login</a>
+    </div>
+  </div>
+
+  <footer>
+    <p style="margin:0;">© 2026 The Warsi Farm. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Only allow digits
+    document.getElementById('otp').addEventListener('input', function() {
+      this.value = this.value.replace(/\D/g, '').slice(0, 4);
+    });
+
+    document.addEventListener('keydown', e => { if (e.key === 'Enter') handleVerify(); });
+
+    function showAlert(msg, type) {
+      const el = document.getElementById('alert');
+      el.textContent = msg;
+      el.className = 'alert ' + type;
+      el.style.display = 'block';
+    }
+
+    function setLoading(loading) {
+      document.getElementById('verifyBtn').disabled = loading;
+      document.getElementById('spinner').style.display = loading ? 'block' : 'none';
+      document.getElementById('btnText').textContent = loading ? 'Verifying…' : 'Verify';
+    }
+
+    async function handleVerify() {
+      const otp = document.getElementById('otp').value.trim();
+      if (otp.length !== 4) { showAlert('Please enter the 4-digit code.', 'error'); return; }
+
+      setLoading(true);
+      document.getElementById('alert').style.display = 'none';
+
+      try {
+        const res  = await fetch('auth/verify-otp.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ otp }),
+          credentials: 'same-origin',
+        });
+        const data = await res.json();
+
+        if (data.status === 'success') {
+          showAlert('Verified! Redirecting…', 'success');
+          setTimeout(() => { window.location.href = data.redirect || 'index.php'; }, 800);
+        } else {
+          showAlert(data.message || 'Invalid code. Please try again.', 'error');
+          setLoading(false);
+        }
+      } catch (err) {
+        showAlert('Network error. Please try again.', 'error');
+        setLoading(false);
+      }
+    }
+
+    // Resend with 60s cooldown
+    let cooldown = 0;
+    let timer    = null;
+
+    function startCooldown() {
+      cooldown = 60;
+      document.getElementById('resendBtn').disabled = true;
+      document.getElementById('countdown').textContent = ' (' + cooldown + 's)';
+      timer = setInterval(() => {
+        cooldown--;
+        if (cooldown <= 0) {
+          clearInterval(timer);
+          document.getElementById('resendBtn').disabled = false;
+          document.getElementById('countdown').textContent = '';
+        } else {
+          document.getElementById('countdown').textContent = ' (' + cooldown + 's)';
+        }
+      }, 1000);
+    }
+
+    async function handleResend() {
+      document.getElementById('alert').style.display = 'none';
+      try {
+        const res  = await fetch('auth/resend-otp.php', { method: 'POST', credentials: 'same-origin' });
+        const data = await res.json();
+        if (data.status === 'success') {
+          showAlert('A new code has been sent to your email.', 'success');
+          startCooldown();
+        } else {
+          showAlert(data.message || 'Could not resend. Please log in again.', 'error');
+        }
+      } catch (err) {
+        showAlert('Network error. Please try again.', 'error');
+      }
+    }
+
+    // Start initial cooldown on page load (code was just sent)
+    startCooldown();
+  </script>
+</body>
+</html>

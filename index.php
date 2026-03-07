@@ -36,7 +36,7 @@ html {
   padding: 1.25rem 1.5rem 1.25rem;
 }
 .logos .twf, .logos .scb {
-  height: 3rem;
+  height: 3.25rem;
   width: auto;
   object-fit: contain;
 }

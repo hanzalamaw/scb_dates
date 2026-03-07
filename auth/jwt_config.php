@@ -8,7 +8,7 @@ use Firebase\JWT\Key;
 
 define('JWT_SECRET', 'your-super-secret-key-change-this-in-production');
 define('JWT_ALGO', 'HS256');
-define('JWT_EXPIRY', 3600); // 1 hour in seconds
+define('JWT_EXPIRY', 86400); // 1 hour in seconds
 define('COOKIE_NAME', 'scb_token');
 
 /**
