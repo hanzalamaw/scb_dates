@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/auth/verify.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -90,6 +91,26 @@ table tbody tr:hover td {
   letter-spacing: 0.02em;
   margin: 0 0 1.25rem 0;
 }
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #888;
+  text-decoration: none;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+}
+.logout-btn:hover {
+  color: #DF0404;
+  border-color: #DF0404;
+  background-color: rgba(223,4,4,0.05) !important;
+}
+.logout-btn svg { flex-shrink: 0; }
 
 footer {
   width: 90%;
@@ -312,7 +333,12 @@ table tbody tr:hover {
 <body>
     <div class="logos">
         <img class="twf" src="imgs/logo.png" alt="TWF">
-        <img class="scb" src="imgs/images.png" alt="SCB">
+        <a href="auth/logout.php" class="logout-btn" onclick="return confirm('Are you sure you want to sign out?')">
+      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="background:transparent !important;">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+      </svg>
+      Sign out
+    </a>
     </div>
     <div class="totalProgress">
         <div style="margin-bottom: 0.5rem;">
