@@ -93,11 +93,11 @@ function sendWithSocket(string $to, string $name, string $code, string $host, in
 
 function getEmailHtml(string $code): string {
     return <<<HTML
-<!DOCTYPE html><html><body style="margin:0;padding:0;background:#FAFBFF;font-family:Poppins,sans-serif;">
-<div style="max-width:420px;margin:40px auto;background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.08);padding:36px 32px;text-align:center;">
-  <p style="font-size:13px;color:#555;margin:0 0 8px;">Your SCB Portal verification code</p>
-  <div style="font-size:36px;font-weight:700;letter-spacing:12px;color:#007bff;margin:16px 0;">{$code}</div>
-  <p style="font-size:12px;color:#999;margin:16px 0 0;">This code expires in <strong>10 minutes</strong>. Do not share it with anyone.</p>
-</div></body></html>
-HTML;
+        <!DOCTYPE html><html><body style="margin:0;padding:0;background:#FAFBFF;font-family:Poppins,sans-serif;">
+        <div style="max-width:420px;margin:40px auto;background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.08);padding:36px 32px;text-align:center;">
+        <p style="font-size:13px;color:#555;margin:0 0 8px;">Your TWF x SCB Portal's verification code</p>
+        <div style="font-size:36px;font-weight:700;letter-spacing:12px;color:#007bff;margin:16px 0;">{$code}</div>
+        <p style="font-size:12px;color:#999;margin:16px 0 0;">This code expires in <strong>10 minutes</strong>. Do not share it with anyone.</p>
+        </div></body></html>
+    HTML;
 }

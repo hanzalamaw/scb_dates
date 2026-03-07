@@ -28,6 +28,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
       padding: 2rem 1rem;
     }
 
@@ -44,14 +45,12 @@
       display: flex;
       justify-content: center;
       margin-bottom: 1.5rem;
-      background-color: white !important;
     }
 
     .card-logo img {
       height: 3.25rem;
       width: auto;
       object-fit: contain;
-      background-color: white !important;
     }
 
     .login-card h2 {
@@ -198,11 +197,12 @@
 <body>
 
   <div class="login-wrapper">
+    <div class="card-logo">
+      <img src="imgs/logo.png" alt="TWF">
+    </div>
     <div class="login-card">
 
-      <div class="card-logo">
-        <img src="imgs/logo.png" alt="TWF">
-      </div>
+      
 
       <h2>Check your email</h2>
       <p class="sub">We sent a 4-digit verification code to your registered email address. Enter it below to continue.</p>
