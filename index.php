@@ -433,7 +433,7 @@ table tbody tr:hover {
           <thead style="position: sticky; top: 0; z-index: 1; border-bottom: 1px solid #e0e0e0; background-color: #f5f5f5 !important;">
             <tr style="text-align: left;">
               <th>Name</th>
-              <th>Designation</th>
+              <th>Company</th>
               <th>Address</th>
               <th>City</th>
               <th>Status</th>
