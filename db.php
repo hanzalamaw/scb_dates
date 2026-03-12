@@ -1,16 +1,16 @@
 <?php
 $host = "localhost";
 //Xampp Credentials
-
+/*
 $username = "root";  
 $password = "";  
-$database = "twf-scb";    
+$database = "twf-scb";    */ 
 
 // Deployment Credentials
-/*
+
 $username = "webhngff_hanzala";  
 $password = "hanzala1234!";  
-$database = "webhngff_twf-scb"; */ 
+$database = "webhngff_twf-scb"; 
 
 // Create connection
 $conn = new mysqli($host, $username, $password, $database);
