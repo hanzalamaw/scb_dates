@@ -236,6 +236,12 @@ table tbody tr:hover {
   border: 1px solid #DF0404;
 }
 
+.status-failed {
+  background-color: #df04041e;
+  color: #DF0404;
+  border: 1px solid #DF0404;
+}
+
 .cards{
   background-color: white !important;
   display: flex;
@@ -370,7 +376,6 @@ table tbody tr:hover {
       <div class="cards">
         <div class="card">
           <img src="imgs/farm.png" alt="Farm">
-
           <div class="card-content"> 
             <span>In Production</span>
             <h4 id="farm">Loading...</h4>
@@ -379,7 +384,6 @@ table tbody tr:hover {
 
         <div class="card">
           <img src="imgs/warehouse.png" alt="warehouse">
-
           <div class="card-content"> 
             <span>Quality Check</span>
             <h4 id="warehouse">Loading...</h4>
@@ -388,7 +392,6 @@ table tbody tr:hover {
 
         <div class="card">
           <img src="imgs/packing.png" alt="packing">
-
           <div class="card-content"> 
             <span>Packed</span>
             <h4 id="packing">Loading...</h4>
@@ -397,7 +400,6 @@ table tbody tr:hover {
 
         <div class="card">
           <img src="imgs/delivered.png" alt="delivered">
-
           <div class="card-content"> 
             <span>Delivered</span>
             <h4 id="delivered">Loading...</h4>
@@ -421,6 +423,7 @@ table tbody tr:hover {
             <option value="Quality Check">Quality Check</option>
             <option value="Packed">Packed</option>
             <option value="Delivered">Delivered</option>
+            <option value="Delivery Attempt Failed">Delivery Attempt Failed</option>
           </select>
         </div>
       </div>
@@ -430,7 +433,7 @@ table tbody tr:hover {
           <thead style="position: sticky; top: 0; z-index: 1; border-bottom: 1px solid #e0e0e0; background-color: #f5f5f5 !important;">
             <tr style="text-align: left;">
               <th>Name</th>
-              <th>Company</th>
+              <th>Designation</th>
               <th>Address</th>
               <th>City</th>
               <th>Status</th>
@@ -443,9 +446,7 @@ table tbody tr:hover {
         </table>
       </div>
 
-
     </div>
-
 
     <footer>
         <p style="margin: 0;">© 2026 The Warsi Farm. All rights reserved.</p>
@@ -453,11 +454,22 @@ table tbody tr:hover {
 </body>
 <script>
 let allData = [];
+
+function getStatusClass(status) {
+  switch (status) {
+    case 'Delivered':              return 'status-delivered';
+    case 'Packed':                 return 'status-packing';
+    case 'Quality Check':          return 'status-warehouse';
+    case 'Delivery Attempt Failed': return 'status-failed';
+    default:                       return 'status-pending';
+  }
+}
+
 function fetchData(){
   fetch('read_customer.php')
   .then(response => {
       if (!response.ok) {
-      throw new Error("Network response was not ok");
+        throw new Error("Network response was not ok");
       }
       return response.json();
   })
@@ -477,29 +489,25 @@ function fetchData(){
 function updateDeliveryProgress() {
   const total = allData.length;
   const deliveredCount = allData.filter(c => c.status === "Delivered").length;
-
   const percentage = total === 0 ? 0 : Math.round((deliveredCount / total) * 100);
 
-  // Update UI
   document.getElementById("deliveryPercent").innerText = percentage + "%";
   document.getElementById("progressBar").style.width = percentage + "%";
 }
 
 function updateStatusProgress() {
-  const farmCount = allData.filter(c => c.status === "In Production").length;
+  const farmCount      = allData.filter(c => c.status === "In Production").length;
   const warehouseCount = allData.filter(c => c.status === "Quality Check").length;
-  const packingCount = allData.filter(c => c.status === "Packed").length;
+  const packingCount   = allData.filter(c => c.status === "Packed").length;
   const deliveredCount = allData.filter(c => c.status === "Delivered").length;
 
-  // Update UI
-  document.getElementById("farm").innerText = farmCount;
+  document.getElementById("farm").innerText      = farmCount;
   document.getElementById("warehouse").innerText = warehouseCount;
-  document.getElementById("packing").innerText = packingCount;
+  document.getElementById("packing").innerText   = packingCount;
   document.getElementById("delivered").innerText = deliveredCount;
 }
 
 fetchData();
-
 
 function updateCityProgress(){
   const cityGroups = {};
@@ -510,13 +518,11 @@ function updateCityProgress(){
     if (entry.status === "Delivered") cityGroups[city].delivered++;
   });
 
-  // Render city rows
   const container = document.getElementById("cityBreakdown");
 
   Object.entries(cityGroups).forEach(([city, { total, delivered }], index) => {
     const percent = Math.round((delivered / total) * 100);
-
-    const id = `bar-${index}`; // Unique ID for animation target
+    const id = `bar-${index}`;
 
     const cityHTML = `
       <div class="city-row">
@@ -531,10 +537,9 @@ function updateCityProgress(){
     `;
     container.insertAdjacentHTML("beforeend", cityHTML);
 
-    // Animate bar after DOM is painted
     setTimeout(() => {
       document.getElementById(id).style.width = percent + '%';
-    }, 100); // slight delay to trigger animation
+    }, 100);
   });
 }
 
@@ -545,12 +550,12 @@ function renderTable(data) {
     const tr = document.createElement("tr");
     tr.innerHTML = `
       <td>${row.name}</td>
-      <td>${row.designation} - ${row.company}</td>
+      <td>${row.designation}</td>
       <td>${row.address}</td>
       <td>${row.city}</td>
       <td>
-        <span class="status-tag ${row.status === 'Delivered' ? 'status-delivered' : row.status === 'Packed' ? 'status-packing' : row.status === 'Quality Check' ? 'status-warehouse' : 'status-pending'}">
-          ${row.status === 'Delivered' ? 'Delivered' : row.status === 'Packed' ? 'Packed' : row.status === 'Quality Check' ? 'Quality Check' : row.status === 'In Production' ? 'In Production' : row.status}
+        <span class="status-tag ${getStatusClass(row.status)}">
+          ${row.status}
         </span>
       </td>
     `;
@@ -558,7 +563,6 @@ function renderTable(data) {
   });
 }
 
-// Populate filter dropdown
 function populateCityFilter() {
   const cityFilter = document.getElementById("cityFilter");
   const cities = [...new Set(allData.map(row => row.city))];
@@ -570,11 +574,11 @@ function populateCityFilter() {
   });
 }
 
-// Filter on search, city, and status
 function applyFilters() {
   const searchText = document.getElementById("searchInput").value.toLowerCase();
-  const city = document.getElementById("cityFilter").value;
-  const status = document.getElementById("statusFilter").value;
+  const city       = document.getElementById("cityFilter").value;
+  const status     = document.getElementById("statusFilter").value;
+
   const filtered = allData.filter(row =>
     (row.name.toLowerCase().includes(searchText) ||
      (row.contact && row.contact.toLowerCase().includes(searchText)) ||
@@ -585,10 +589,8 @@ function applyFilters() {
   renderTable(filtered);
 }
 
-// Event listeners
 document.getElementById("searchInput").addEventListener("input", applyFilters);
 document.getElementById("cityFilter").addEventListener("change", applyFilters);
 document.getElementById("statusFilter").addEventListener("change", applyFilters);
-
 </script>
 </html>
