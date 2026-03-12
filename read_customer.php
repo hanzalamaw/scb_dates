@@ -1,4 +1,4 @@
-<?php require_once __DIR__ . '/auth/verify.php'; ?>
+<?php //require_once __DIR__ . '/auth/verify.php'; ?>
 <?php
 include 'db.php'; // Include the DB connection
 
